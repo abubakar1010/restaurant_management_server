@@ -87,7 +87,13 @@ async function run() {
           res.send(result);
         })
 
+        // get data from gallery collection 
 
+        app.get("/gallery", async(req, res) => {
+          const cursor = galleryCollection.find()
+          const result = await cursor.toArray()
+          res.send(result)
+      })
 
 
 
