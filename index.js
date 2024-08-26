@@ -117,12 +117,23 @@ async function run() {
 
     // insert purchase details
 
-    app.post("/purchase", async (req, res) => {
+    app.post("/purchase/:id", async (req, res) => {
       const docs = req.body;
-      console.log(docs);
+      const id = req.params.id
+      const query = { _id: new ObjectId(id) }; 
+    const update = {
+      $inc: { 
+        totalPurchase: 1,  
+        quantity: -1 
+      }
+    };
 
+    // console.log(id);  
+    
+
+    const updateFoods = await foodsCollection.updateOne(query, update);
       const result = await purchasesCollection.insertOne(docs);
-      res.send(result);
+      res.send({result, updateFoods});
     });
 
     // get purchase food by email
