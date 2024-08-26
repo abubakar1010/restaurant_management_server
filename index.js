@@ -115,11 +115,20 @@ async function run() {
 
     app.get("/purchase/:email", async (req, res) => {
       const emailId = req.params.email;
-      console.log(emailId);
+      // console.log(emailId);
       const query = { email: emailId };
       const result = await purchasesCollection.find(query).toArray();
       res.send(result);
     });
+
+    //delete purchase item
+
+    app.delete("/purchase/delete/:id", async(req, res) => {
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)};
+      const result = await purchasesCollection.deleteOne(query)
+      res.send(result)
+    })
 
     //insert gallery info
 
