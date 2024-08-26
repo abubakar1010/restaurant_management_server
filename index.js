@@ -42,7 +42,17 @@ async function run() {
         res.send(result)
     })
 
+        // get foods by foodName
 
+        app.get("/foods/:name", async(req, res) => {
+          const name = req.params.name;
+          // console.log(name);
+          const query = {foodName:  { $regex: new RegExp(name, "i") }};
+          const result = await foodsCollection.find(query).toArray()
+          
+          res.send(result);
+          
+        })
 
 
     // Send a ping to confirm a successful connection
