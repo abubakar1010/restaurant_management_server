@@ -111,6 +111,16 @@ async function run() {
       res.send(result);
     });
 
+    // get purchase food by email
+
+    app.get("/purchase/:email", async (req, res) => {
+      const emailId = req.params.email;
+      console.log(emailId);
+      const query = { email: emailId };
+      const result = await purchasesCollection.find(query).toArray();
+      res.send(result);
+    });
+
     //insert gallery info
 
     app.post("/gallery", async (req, res) => {
