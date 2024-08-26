@@ -66,6 +66,32 @@ async function run() {
           res.send(result);
           
         })
+        // get foods by email
+
+        app.get("/foods/user/:email", async(req, res) => {
+          const emailId = req.params.email;
+          console.log(emailId);
+          const query = {email: emailId};
+          const result =  await foodsCollection.find(query).toArray()
+          res.send(result);
+          
+        })
+
+        // update foods item 
+
+        app.patch("/update/:id", async(req, res) => {
+          const data = req.body;
+          const id = req.params.id;
+          console.log("update info",data);
+          console.log("food id",id);
+          const filter = { _id: new ObjectId(id) };
+          const updateDocs = {
+            $set: data
+          }
+          const result = await foodsCollection.updateOne(filter, updateDocs)
+          res.send(result)
+          
+        })
 
         // insert purchase details 
 
