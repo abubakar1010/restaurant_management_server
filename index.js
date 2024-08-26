@@ -56,6 +56,20 @@ async function run() {
       res.send(result);
     });
 
+    // get 6 top-selling Food Items 
+
+    app.get('/top-selling-foods', async (req, res) => {
+
+        const topSellingFoods = await foodsCollection
+          .find({})
+          .sort({ totalPurchase: -1 }) 
+          .limit(6) 
+          .toArray();
+
+        res.send(topSellingFoods);
+      
+    });
+
     // get foods by foodName
 
     app.get("/foods/:name", async (req, res) => {
