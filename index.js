@@ -34,6 +34,7 @@ async function run() {
     
     const foodsCollection = client.db("restaurant_management").collection("foods")
     const purchasesCollection = client.db("restaurant_management").collection("purchases")
+    const galleryCollection = client.db("restaurant_management").collection("gallery")
 
     // get all foods 
 
@@ -75,6 +76,22 @@ async function run() {
           const result = await purchasesCollection.insertOne(docs);
           res.send(result);
         })
+
+        //insert gallery info
+
+        app.post("/gallery", async (req, res) => {
+          const docs = req.body;
+          console.log(docs);
+          
+          const result = await galleryCollection.insertOne(docs);
+          res.send(result);
+        })
+
+
+
+
+
+
 
 
     // Send a ping to confirm a successful connection
